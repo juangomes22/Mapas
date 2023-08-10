@@ -5,6 +5,7 @@ import { Icon } from "react-native-elements";
 import { onValue, push, ref } from "firebase/database";
 import { db } from "../../firebase-config";
 import { getStoredData } from "../shared/secure-store-service";
+import { styles } from "../styles/styles";
 
 
 export default function ChatPage({ navigation, route }) {
@@ -28,7 +29,7 @@ export default function ChatPage({ navigation, route }) {
     }
 
     async function getMessages() {
-        return onValue(ref(db, `/messages/${route.params.currentItem.id}`), (snapshot) => {
+        return onValue(ref(db, `/messages/${route.params.place.id}`), (snapshot) => {
             try {
                 setMessages([]);
                 if (snapshot !== undefined) {
@@ -75,8 +76,9 @@ export default function ChatPage({ navigation, route }) {
                     return (
                         item.sender !== author ?
 
-                            <View style={styles.container}>
+                            <View style={styles.containerChat} >
                                 <View style={styles.containerMessage}>
+                                    
                                     <View style={{ backgroundColor: 'transparent', width: 200, flexDirection: 'row', marginBottom: 16 }}>
                                         <Image source={{ uri: `https://robohash.org/${item.sender}.png?set=set2` }}
                                             style={{ backgroundColor: '#ccc', width: 40, height: 40, marginRight: 8, borderRadius: 20 }} />
@@ -92,8 +94,8 @@ export default function ChatPage({ navigation, route }) {
                             <View style={styles.containerReverse}>
                                 <View style={styles.containerMessageReverse}>
                                     <View style={{ backgroundColor: 'transparent', width: 200, flexDirection: 'row-reverse' }}>
-                                        <Image source={{ uri: `https://robohash.org/${author}.png?set=set2` }} style={{ backgroundColor: '#ccc', width: 40, height: 40 }} />
-                                        <View style={{ backgroundColor: '#ccc', width: 'auto', borderRadius: 7, paddingVertical: 2, paddingHorizontal: 4 }}>
+                                        <Image source={{ uri: `https://robohash.org/${author}.png?set=set2` }} style={{ backgroundColor: '#ccc', width: 40, height: 40, marginRight: 8, borderRadius: 20 }} />
+                                        <View style={{ backgroundColor: '#ccc', width: 'auto', paddingHorizontal: 4, paddingVertical: 2, borderRadius: 7}}>
                                             <Text style={{ fontSize: 13, fontWeight: '700' }}>{item.sender}</Text>
                                             <Text style={{}}>{item.message}</Text>
                                             <Text style={{ textAlign: "right", fontSize: 8 }}>{convertTimestampToDate(item.date)}</Text>
@@ -131,30 +133,3 @@ export default function ChatPage({ navigation, route }) {
 
 }
 
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: 'transparent',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        paddingLeft: 16,
-    },
-    containerMessage: {
-        backgroundColor: 'transparent',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-        paddingLeft: 16,
-    },
-    containerReverse: {
-        backgroundColor: 'transparent',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-        paddingLeft: 16,
-        width: '100%',
-    },
-    containerMessageReverse: {
-        backgroundColor: 'transparent',
-        alignItems: 'flex-end',
-        marginVertical: 4,
-        width: '100%',
-    }
-});

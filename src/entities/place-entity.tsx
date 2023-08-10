@@ -1,5 +1,3 @@
-import CoordinateEntity from "./coordinate-entity";
-
 export default class PlaceEntity{
     id: string;
     description: string;

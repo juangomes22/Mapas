@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { View, StyleSheet, Image, Text, TextInput } from "react-native";
 import { Button } from "react-native-elements";
 import { getStoredData, setStoredData } from "../shared/secure-store-service";
+import { styles } from "../styles/styles";
 
 export default function LoginPage({ navigation }) {
     const [author, setAuthor] = useState('');
@@ -23,7 +24,7 @@ useEffect(() =>{
     }
 
     return (
-        <View style={styles.container}>
+        <View style={styles.containerLogin}>
             <View style={{
                 width: '100%',
                 height: '100%',
@@ -32,7 +33,7 @@ useEffect(() =>{
                 marginHorizontal: 16
             }}>
                 <Image source={require('../../assets/logo.png')} style={{ width: 200, height: 200,marginTop:180 }} />
-                <View style={{flex:1.5}}></View>
+                <View style={{flex:2}}></View>
                 <View style={{flex:1, width:'90%', marginHorizontal:16}}>
                     <TextInput placeholder="Digite seu nome de usuário "
                         onChangeText={setAuthor}
@@ -51,20 +52,3 @@ useEffect(() =>{
     )
 }
 
-export const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: 'white',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-    },
-
-    logo:{
-        width:100,
-        height:100,
-        resizeMode:"cover",
-        borderRadius:50,
-        flex: 1
-    },
-
-});

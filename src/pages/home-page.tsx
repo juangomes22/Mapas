@@ -34,8 +34,8 @@ export default function HomePage({ navigation }) {
                 mapRef.animateToRegion({
                     latitude: position.latitude,
                     longitude: position.longitude,
-                    latitudeDelta: 0.04,
-                    longitudeDelta: 0.05,
+                    latitudeDelta: 0.0922,
+                    longitudeDelta: 0.0421,
                 }, 1000);
 
             } else {
@@ -136,6 +136,9 @@ export default function HomePage({ navigation }) {
         <View>
             <MapView
                 style={{ height: '100%', width: '100%' }}
+
+            
+
                 ref={(map) => {
                     setMapRef(map);
                     initMap();
@@ -145,6 +148,9 @@ export default function HomePage({ navigation }) {
                 followsUserLocation={true}
                 showsMyLocationButton={false}
                 toolbarEnabled={false}
+
+
+
             >
                 {
 
