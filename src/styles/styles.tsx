@@ -52,7 +52,7 @@ import { StyleSheet } from "react-native";
     },
     cardStyle:{
     backgroundColor:'white',
-    height:470,
+    height:510,
     position:'absolute',
     top: 32,
     right: 16,

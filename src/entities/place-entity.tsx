@@ -7,4 +7,5 @@ export default class PlaceEntity{
     photoDate: string;
     title: string;
     coords: {latitude: number, longitude: number};
+    author: string;
 }

@@ -8,6 +8,7 @@ import CoordinateEntity from "../entities/coordinate-entity";
 import * as Location from 'expo-location'
 import { onValue, push, ref, remove, update } from "firebase/database";
 import { db } from "../../firebase-config";
+import { getStoredData } from "../shared/secure-store-service";
 
 export default function HomePage({ navigation }) {
 
@@ -65,7 +66,7 @@ export default function HomePage({ navigation }) {
         const position = await getCurrentPosition();
 
         if (position) {
-            const newItem = {
+            const newItem: PlaceEntity = {
                 id: Math.random().toString(),
                 imagePath: imageUrl,
                 description: '',
@@ -74,7 +75,8 @@ export default function HomePage({ navigation }) {
                     latitude: position.latitude,
                     longitude: position.latitude,
                 },
-                title: ''
+                title: '',
+                author: await getStoredData('author')
             }
 
 
@@ -180,7 +182,7 @@ export default function HomePage({ navigation }) {
                 <View style={styles.cardStyle}>
                     <TouchableNativeFeedback onPress={() => (navigation.navigate('place', { place: currentPlace }))}>
                         <Image source={{ uri: currentPlace.imagePath }} style={{ width: '100%', maxHeight: 400, aspectRatio: 1 }} />
-                    </TouchableNativeFeedback>  
+                    </TouchableNativeFeedback>
 
                     {
                         currentPlace.description !== '' ?
@@ -214,6 +216,25 @@ export default function HomePage({ navigation }) {
                                 showConfirmDialog();
                             }}>
                                 <Icon name='delete' type='google' color='white' size={15} />
+                            </TouchableNativeFeedback>
+                        </View>
+                    </View>
+                    <View style={{
+                        flexDirection: "row",
+                        width: '100%',
+                        marginBottom: 16,
+                        justifyContent:"space-between",
+
+                    }}>
+                        <View style={{}}>
+                            <Text>Data: {currentPlace.photoDate}</Text>
+                            <Text>Autor: {currentPlace.author}</Text>
+                        </View>
+                        <View style={[styles.cardButton, {marginTop:20}]}>
+                            <TouchableNativeFeedback onPress={() => {
+                                navigation.navigate('chat', {place: currentPlace});
+                            }}>
+                                <Icon name='chat' type='google' color='white' size={15} />
                             </TouchableNativeFeedback>
                         </View>
                     </View>
